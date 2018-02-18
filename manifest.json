@@ -1,0 +1,21 @@
+{
+  "manifest_version": "1",
+  "api_version": "1",
+  "name": "Exit Gnome",
+  "description": "Logout / Reboot / Shutdown functions for Gnome desktop.",
+  "developer_name": "Roberto Leinardi",
+  "icon": "images/gnome-shutdown.png",
+  "options": {
+    "query_debounce": 0.1
+  },
+  "preferences": [
+    {
+      "id": "gnomesession_ext",
+      "type": "keyword",
+      "name": "Exit Gnome",
+      "description": "Logout / Reboot / Shutdown functions for Gnome desktop.",
+      "default_value": "exit"
+    }
+  ]
+}
+
