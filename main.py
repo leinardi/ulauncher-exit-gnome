@@ -15,7 +15,7 @@ class GnomeSessionExtension(Extension):
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         items = []
-        options = ['logout', 'restart', 'reboot', 'shutdown', 'halt', 'power-off', 'suspend', 'pause']
+        options = ['logout', 'restart', 'reboot', 'shutdown', 'halt', 'power-off', 'suspend', 'pause', 'sleep']
         my_list = event.query.split(" ")
         if len(my_list) == 1:
             items.append(get_logout_item())
@@ -35,7 +35,7 @@ class KeywordQueryEventListener(EventListener):
                     elif option in ['restart', 'reboot'] and 'reboot' not in included:
                         items.append(get_reboot_item())
                         included.append('reboot')
-                    elif option in ['suspend', 'pause'] and 'suspend' not in included:
+                    elif option in ['suspend', 'pause', 'sleep'] and 'suspend' not in included:
                         items.append(get_suspend_item())
                         included.append('suspend')
                     elif option in ['logout']:
