@@ -15,11 +15,12 @@ class GnomeSessionExtension(Extension):
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         items = []
-        options = ['logout', 'restart', 'reboot', 'shutdown', 'halt', 'power-off']
+        options = ['logout', 'restart', 'reboot', 'shutdown', 'halt', 'power-off', 'suspend', 'pause']
         my_list = event.query.split(" ")
         if len(my_list) == 1:
             items.append(get_logout_item())
             items.append(get_reboot_item())
+            items.append(get_suspend_item())
             items.append(get_shutdown_item())
 
             return RenderResultListAction(items)
@@ -34,6 +35,9 @@ class KeywordQueryEventListener(EventListener):
                     elif option in ['restart', 'reboot'] and 'reboot' not in included:
                         items.append(get_reboot_item())
                         included.append('reboot')
+                    elif option in ['suspend', 'pause'] and 'suspend' not in included:
+                        items.append(get_suspend_item())
+                        included.append('suspend')
                     elif option in ['logout']:
                         items.append(get_logout_item())
 
@@ -53,7 +57,11 @@ def get_reboot_item():
                                description='Reboot computer',
                                on_enter=RunScriptAction("gnome-session-quit --reboot --force", None))
 
-
+def get_suspend_item():
+    return ExtensionResultItem(icon='images/gnome-suspend.png',
+                               name='Suspend',
+                               description='Suspend session',
+                               on_enter=RunScriptAction("systemctl suspend", None))
 def get_shutdown_item():
     return ExtensionResultItem(icon='images/gnome-shutdown.png',
                                name='Shutdown',
